@@ -41,13 +41,14 @@ SEGMENT_ACTIONS = {
     'Low Priority / At Risk': 'Low investment — low behavioral and value signal on both fronts.',
 }
 
+from pathlib import Path
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/customer_features_engineered.csv")
+    data_path = Path(__file__).parent / "data" / "customer_features_engineered.csv"
+    df = pd.read_csv(data_path)
     df['State_Abbr'] = df['Location'].map(STATE_ABBR)
     return df
-
 
 def sidebar_filters(df, key_prefix=""):
     """Renders standard sidebar filters and returns the filtered dataframe.
